@@ -23,4 +23,9 @@ public class HtmlFileDetails extends FileDetails {
     public void setSize(int size) {
         this.size = size;
     }
+
+    @Override
+    public void accept(FileVisitor fileVisitor) {
+        fileVisitor.visit(this);
+    }
 }

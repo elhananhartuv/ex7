@@ -20,4 +20,9 @@ public class DocxFileDetails extends FileDetails {
     public int getSize() {
         return size;
     }
+
+    @Override
+    public void accept(FileVisitor fileVisitor) {
+        fileVisitor.visit(this);
+    }
 }

@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
 import Files.*;
 import Food.*;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
@@ -15,27 +17,31 @@ public class Main {
                 "f: FileDetails\n" +
                 "h: Hamburgers");
         String choice = scanner.nextLine();
-        if (choice.equals("f")){
+        if (choice.equals("f")) {
             fileMenu(scanner);
         }
-        if (choice.equals("h")){
+        if (choice.equals("h")) {
             hamburgerMenu(scanner);
         }
     }
+
     public static FileDetails readFileDetails(String path) throws IOException {
         Map<String, FileDetails> files = new HashMap();
-        DirectoryDetails root=new DirectoryDetails(null, "root");
+        DirectoryDetails root = new DirectoryDetails(null, "root");
         files.put("", root);
         Files.lines(Paths.get(path))
                 .map(str -> FileDetailsFactory.getFileDetails(str))
-                .peek(f -> files.put(f.getFullName(),f))
-                .peek(f -> ((DirectoryDetails)files.get(f.getPath())).addFile(f))
+                .peek(f -> files.put(f.getFullName(), f))
+                .peek(f -> ((DirectoryDetails) files.get(f.getPath())).addFile(f))
                 .collect(Collectors.toList());
         return root;
     }
+
     public static void fileMenu(Scanner scanner) throws IOException {
-        String path="files.txt";
-        FileDetails root= readFileDetails(path);
+        String path = "src/files.txt";
+        FileDetails root = readFileDetails(path);
+
+        FileVisitor visitor;
         System.out.println("Choose from the following options:\n" +
                 "q: quit\n" +
                 "c: countFiles\n" +
@@ -43,24 +49,32 @@ public class Main {
                 "sh: short\n" +
                 "sz: size");
         String myString;
-        while (!(myString = scanner.nextLine()).equals("q")){
-            switch (myString){
+        while (!(myString = scanner.nextLine()).equals("q")) {
+            switch (myString) {
                 case "c":
-                    //TODO: Add counting behavior
+                    visitor = new FileCountVisitor();
+                    root.accept(visitor);
+                    int count = ((FileCountVisitor) visitor).getNumFiles();
+                    System.out.println("Found " + count + " files");
                     break;
                 case "sz":
-                    //TODO: Add size calculation behavior
+                    visitor = new SizeCalculatorVisitor();
+                    root.accept(visitor);
+                    int size = ((SizeCalculatorVisitor) visitor).getSize();
+                    System.out.println("Found " + size + " files");
                     break;
                 case "st":
-                    //TODO: Add statistics behavior
+                    visitor = new StatisticsVisitor();
+                    root.accept(visitor);
                     break;
                 case "sh":
-                    //TODO: Add short representation behavior
+                    visitor = new ShortPrintVisitor();
+                    root.accept(visitor);
             }
         }
     }
 
-    public static void hamburgerMenu(Scanner scanner){
+    public static void hamburgerMenu(Scanner scanner) {
         System.out.println("Choose from the following hamburgers:\n" +
                 "cl: classic\n" +
                 "sp: spicy\n" +
@@ -69,7 +83,7 @@ public class Main {
         // TODO: Add a Hamburger Factory and use it to create a Hamburger
         Hamburger hamburger = null;
 
-        String choice="";
+        String choice = "";
         while (!choice.equals("s")) {
             System.out.println("Choose from the following options:\n" +
                     "a: add topping\n" +
@@ -86,7 +100,8 @@ public class Main {
 
 
     }
-    public static Hamburger toppingMenu(Scanner scanner, Hamburger hamburger){
+
+    public static Hamburger toppingMenu(Scanner scanner, Hamburger hamburger) {
         System.out.println("Choose from the following toppings:\n" +
                 "ch: chips\n" +
                 "or: onion rings\n" +
