@@ -1,5 +1,3 @@
-package Files;
-
 public class FileCountVisitor implements FileVisitor {
     private int numFiles;
 

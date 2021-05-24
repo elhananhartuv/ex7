@@ -6,11 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import Files.*;
-import Food.*;
-
 public class Main {
-
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose from the following options:\n" +
@@ -38,7 +34,7 @@ public class Main {
     }
 
     public static void fileMenu(Scanner scanner) throws IOException {
-        String path = "src/files.txt";
+        String path = "files.txt";
         FileDetails root = readFileDetails(path);
 
         FileVisitor visitor;
@@ -61,7 +57,7 @@ public class Main {
                     visitor = new SizeCalculatorVisitor();
                     root.accept(visitor);
                     int size = ((SizeCalculatorVisitor) visitor).getSize();
-                    System.out.println("Found " + size + " files");
+                    System.out.println("the total size is " + size + " bytes");
                     break;
                 case "st":
                     visitor = new StatisticsVisitor();
@@ -80,9 +76,8 @@ public class Main {
                 "sp: spicy\n" +
                 "la: lamb\n" +
                 "hm: homemade");
-        // TODO: Add a Hamburger Factory and use it to create a Hamburger
-        Hamburger hamburger = null;
 
+        Hamburger hamburger = HamburgerFactory.createHamburger(scanner.nextLine());
         String choice = "";
         while (!choice.equals("s")) {
             System.out.println("Choose from the following options:\n" +
@@ -97,8 +92,6 @@ public class Main {
 
             }
         }
-
-
     }
 
     public static Hamburger toppingMenu(Scanner scanner, Hamburger hamburger) {
@@ -106,8 +99,9 @@ public class Main {
                 "ch: chips\n" +
                 "or: onion rings\n" +
                 "sa: salad\n" +
-                "fe: friedEgg");
-        // TODO: Add a Hamburger-Topping Factory and use it to create a decorated Hamburger
-        return null;
+                "fe: fried egg");
+        String choice=scanner.nextLine();
+        Hamburger hamburger1=HamburgerFactory.HamburgerTopping(hamburger,choice);
+        return hamburger1;
     }
 }

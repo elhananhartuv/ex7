@@ -1,4 +1,3 @@
-package Files;
 public class TxtFileDetails extends FileDetails {
     private int words;
     private int size;

@@ -1,4 +1,3 @@
-package Food;
 public class HomemadeHamburger implements Hamburger {
     @Override
     public String serve() {

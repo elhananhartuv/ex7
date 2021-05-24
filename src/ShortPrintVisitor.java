@@ -1,5 +1,3 @@
-package Files;
-
 public class ShortPrintVisitor implements FileVisitor {
     @Override
     public void visit(HtmlFileDetails file) {

@@ -1,4 +1,3 @@
-package Files;
 public class JpgFileDetails extends FileDetails {
     private int width;
     private int height;

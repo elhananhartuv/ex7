@@ -1,5 +1,3 @@
-package Files;
-
 public class SizeCalculatorVisitor implements FileVisitor{
     private int size;
     public SizeCalculatorVisitor(){

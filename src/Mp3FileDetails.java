@@ -1,4 +1,3 @@
-package Files;
 public class Mp3FileDetails extends FileDetails {
     private int lengthSec;
     private int size;

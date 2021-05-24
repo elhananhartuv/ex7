@@ -1,4 +1,3 @@
-package Files;
 public class HtmlFileDetails extends FileDetails {
     private int lines;
     private int size;

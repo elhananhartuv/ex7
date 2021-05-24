@@ -1,5 +1,3 @@
-package Files;
-
 public interface FileVisitor {
     void visit(HtmlFileDetails file);
     void visit(DocxFileDetails file);

@@ -1,4 +1,3 @@
-package Files;
 public class PptxFileDetails extends FileDetails {
     private int slides;
     private int size;
